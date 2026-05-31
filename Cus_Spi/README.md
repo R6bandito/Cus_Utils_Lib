@@ -254,7 +254,7 @@ Cus_SPI/
       printf("rx2: %X", rx2);
   ```
 
-  ![SPI波形-50Khz/Mode0/MSB](image/soft spi Transfer 0x5A MSB Mode 0.png)
+  ![SPI波形-50Khz/Mode0/MSB](image/soft_spi_Transfer_0x5A_MSB_Mode0.png)
 
   由于为模拟测试，因此MISO保持高电平，rx2读取到0xFF。CLK频率50Khz。
 
@@ -265,7 +265,7 @@ Cus_SPI/
      Cus_SPI_TransferBlock(DevA.spiBus, &DevA, tx_block, NULL, 4); // 只发送
   ```
 
-  ![SPI波形-50Khz/Mode0/MSB](image/soft spi Transferblockonlysend 0x12 34 56 78 MSB Mode 0.png)
+  ![SPI波形-50Khz/Mode0/MSB](image/soft_spi_Transferblockonlysend_0x12_34_56_78_MSB_Mode0.png)
 
 - 只接收字节块（发送0xFF）。
 
@@ -278,7 +278,7 @@ Cus_SPI/
       }
   ```
 
-  ![SPI波形-50Khz/Mode0/MSB](image/soft spi Transferonlyrecv MSB Mode 0.png)
+  ![SPI波形-50Khz/Mode0/MSB](image/soft_spi_Transferonlyrecv_MSB_Mode_0.png)
 
   由于MISO测试时保持高电平。因此读出均为FF，MOSI发送也均为FF。
 
@@ -289,7 +289,7 @@ Cus_SPI/
      Cus_SPI_SendByte(&myBus, &DevA, 0x55); // 预期 MOSI 输出 10101010 (LSB)
   ```
 
-  ![SPI波形-50Khz/Mode0/LSB](image/soft spi sendNoRecv 0x55 LSB Mode 0.png)
+  ![SPI波形-50Khz/Mode0/LSB](image/soft_spi_sendNoRecv_0x55_LSB_Mode0.png)
 
 - MSB字序发送0x55。发送模式Mode1。
 
@@ -299,7 +299,7 @@ Cus_SPI/
       Cus_SPI_SendByte(DevA.spiBus, &DevA, 0x55);
   ```
 
-  ![SPI波形-50Khz/Mode1/MSB](image/soft spi sendNoRecv 0x55 MSB Mode 1.png)
+  ![SPI波形-50Khz/Mode1/MSB](image/soft_spi_sendNoRecv_0x55_MSB_Mode1.png)
 
   总线低电平，第二个边沿采样。
 
@@ -310,7 +310,7 @@ Cus_SPI/
       Cus_SPI_SendByte(DevA.spiBus, &DevA, 0x55); // 空闲高，下降沿采样
   ```
 
-  ![SPI波形-50Khz/Mode2/MSB](image/soft spi sendNoRecv 0x55 MSB Mode 2.png)
+  ![SPI波形-50Khz/Mode2/MSB](image/soft_spi_sendNoRecv_0x55_MSB_Mode2.png)
 
   总线高电平，第一个边沿采样。
 
@@ -321,13 +321,13 @@ Cus_SPI/
       Cus_SPI_SendByte(DevA.spiBus, &DevA, 0x55); // 空闲高，上升沿采样
   ```
 
-  ![SPI波形-50Khz/Mode3/MSB](image/soft spi sendNoRecv 0x55 MSB Mode 3.png)
+  ![SPI波形-50Khz/Mode3/MSB](image/soft_spi_sendNoRecv_0x55_MSB_Mode3.png)
 
   总线高电平，第二个边沿采样。
 
 - 频率上限。当`SPI_DELAY_US = 1`。
 
-  ![SPI波形-125Khz/Mode0/MSB](image/soft spi sendNoRecv 0x55 LSB Mode 0  delay=1 125Khz.png)
+  ![SPI波形-125Khz/Mode0/MSB](image/soft_spi_sendN_Recv_0x55_LSB_Mode0_delay=1_125Khz.png)
 
   可以看到稳定输出 125 Khz频率波形。 由于延时函数的设计与HAL库的使用，上限频率有很大差距。为了提高频率，你可以在移植port时采用纯寄存器操作而非HAL库。后续的迭代中考虑继续优化波形与提高频率。
 
